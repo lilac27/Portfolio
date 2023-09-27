@@ -10,8 +10,14 @@ function Footer() {
           <div className="mb-8">
               <h2 className="text-2xl font-bold mb-4">Connect with Us</h2>
               <div className="flex items-center">
+              <a href="https://github.com/lilac27" target="_blank" rel="noopener noreferrer">
                 <FaGithub className="mr-2 text-pink-500 hover:text-pink-600" size={24} />
+              </a>
+                <a href="www.linkedin.com/in/lilac27" target="_blank" rel="noopener noreferrer">
+                  
                 <FaLinkedin className="mr-2 text-pink-500 hover:text-pink-600" size={24} />
+                </a>
+
               </div>
             </div>
             <div className="mb-8">

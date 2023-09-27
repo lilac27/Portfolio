@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { WiMoonAltWaningCrescent2 } from 'react-icons/wi';
 import { VscBellDot } from 'react-icons/vsc';
 
 function Navbar() {
@@ -16,7 +15,7 @@ function Navbar() {
 
   return (
     <nav className='flex justify-between items-center p-4'>
-      <WiMoonAltWaningCrescent2 className='text-pink-600' />
+        <span className='text-pink-600 font-bold'>Joshua "LIlac" Jonas</span>
       <div className='hidden md:flex space-x-4'>
         <Link to='/'>About Me</Link>
         <Link to='/explore'>Portfolio</Link>
