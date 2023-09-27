@@ -15,12 +15,12 @@ function Navbar() {
 
   return (
     <nav className='flex justify-between items-center p-4'>
-        <span className='text-pink-600 font-bold'>Joshua "LIlac" Jonas</span>
+        <span className='text-pink-600 font-bold'>Joshua "Lilac" Jonas</span>
       <div className='hidden md:flex space-x-4'>
         <Link to='/'>About Me</Link>
-        <Link to='/explore'>Portfolio</Link>
-        <Link to='/create'>Contact</Link>
-        <Link to='/profile'>Resume</Link>
+        <Link to='/portfolio'>Portfolio</Link>
+        <Link to='/resume'>Resume</Link>
+        <Link to='/contact'>Contact</Link>
         <VscBellDot className='text-pink-600 hover:animate-bounce' />
       </div>
       <div className='md:hidden'>
@@ -37,11 +37,11 @@ function Navbar() {
             <Link to='/portfolio' onClick={closeMenu} className='mb-4'>
               Portfolio
             </Link>
-            <Link to='/contact' onClick={closeMenu} className='mb-4'>
-              Contact
-            </Link>
             <Link to='/resume' onClick={closeMenu} className='mb-4'>
               Resume
+            </Link>
+            <Link to='/contact' onClick={closeMenu} className='mb-4'>
+              Contact
             </Link>
           </div>
         </div>
