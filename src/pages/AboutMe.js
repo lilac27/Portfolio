@@ -1,5 +1,5 @@
 import React from 'react';
-import profilePicture from './images/Lilac.jpg';
+import profilePicture from '../images/Lilac.JPG';
 
 
 export default function About() {
