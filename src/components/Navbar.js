@@ -16,13 +16,13 @@ function Navbar() {
   return (
     <nav className='flex justify-between items-center p-4'>
         <span className='text-pink-600 font-bold'>Joshua "Lilac" Jonas</span>
-      <div className='hidden md:flex space-x-4'>
+      {/* <div className='hidden md:flex space-x-4'>
         <Link to='/'>About Me</Link>
         <Link to='/portfolio'>Portfolio</Link>
         <Link to='/resume'>Resume</Link>
         <Link to='/contact'>Contact</Link>
         <VscBellDot className='text-pink-600 hover:animate-bounce' />
-      </div>
+      </div> */}
       <div className='md:hidden'>
         <button onClick={toggleMenu} className='text-2xl'>
           &#9776;
