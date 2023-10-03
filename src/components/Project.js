@@ -4,6 +4,13 @@ import React from 'react';
 const Project = () => {
   const projects = [
     {
+      title: 'CraftHouse',
+      description: 'A fun crafting site.',
+      githubLink: 'https://github.com/CHawsCoding/CraftHouse',
+      deployedLink: 'https://craft-house-333df780d3f8.herokuapp.com/',
+      image: '../images/crafthouse.png'
+    },
+    {
       title: 'Filmetheca',
       description: 'A user-driven film application. Collaboratively created.',
       githubLink: 'https://github.com/adamhansen184/filmetheca/',
