@@ -1,3 +1,20 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Adjusted mobile menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20%;
+  max-width: 300px; /* Adjust width as needed */
+  background-color: gray; /* Change background color */
+  z-index: 100; /* Ensure it's above other elements */
+  padding: 20px;
+  /* Other necessary styles */
+}
+
 .profile-picture {
   width: 200px; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
@@ -6,3 +23,8 @@
 .menu-link {
   margin-right: 1rem;
 }
+
+.navbar {
+  background-color: black;
+}
+
