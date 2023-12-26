@@ -24,7 +24,7 @@ function Navbar() {
   return (
     <nav className='flex justify-between items-center p-4 navbar'>
       <span className='text-white text-2xl font-bold'>Joshua "Lilac" Jonas</span>
-      <div className='hidden md:flex text-lg space-x-4 text-pink-100'>
+      <div className='hidden mt-6 md:flex text-lg space-x-4 text-pink-100'>
         <Link to='/' onClick={closeMenu} className='mb-4'>
           About Me
         </Link>
