@@ -9,7 +9,7 @@
   right: 0;
   width: 20%;
   max-width: 300px; /* Adjust width as needed */
-  background-color: gray; /* Change background color */
+  background-color: black; /* Change background color */
   z-index: 100; /* Ensure it's above other elements */
   padding: 20px;
   /* Other necessary styles */
