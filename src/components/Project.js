@@ -6,6 +6,8 @@ import blog from '../images/blog.png';
 import notes from '../images/note-taker.png';
 import weather from '../images/weather.png';
 import scheduler from '../images/work-day-scheduler.png';
+import '../App.css';
+
 
 
 
@@ -19,18 +21,18 @@ const Project = () => {
       image: craftHouse
     },
     {
-      title: 'Filmetheca',
-      description: 'A user-driven film application. Collaboratively created.',
-      githubLink: 'https://github.com/adamhansen184/filmetheca/',
-      deployedLink: 'https://adamhansen184.github.io/filmetheca/',
-      image: filmetheca
-    },
-    {
       title: 'Pizza Express',
       description: 'A business-centered application, designed with pizza shops in mind. Collaboratively created.',
       githubLink: 'https://github.com/christianbmartinez/pizza-express',
       deployedLink: 'https://nameless-river-58365-d5c2867a5c56.herokuapp.com/',
       image: pizzaExpress
+    },
+    {
+      title: 'Filmetheca',
+      description: 'A user-driven film application. Collaboratively created.',
+      githubLink: 'https://github.com/adamhansen184/filmetheca/',
+      deployedLink: 'https://adamhansen184.github.io/filmetheca/',
+      image: filmetheca
     },
     {
       title: 'Tech Blog',
@@ -61,23 +63,24 @@ const Project = () => {
       image: scheduler
     },  ];
 
-  return (
-    <div>
-      {projects.map((project, index) => (
-        <div key={index}>
-          <h2>{project.title}</h2>
-          <p>{project.description}</p>
-          <img src={project.image} alt={project.title} />
-          <p>
-            GitHub: <a href={project.githubLink}>{project.githubLink}</a>
-          </p>
-          <p>
-            Deployed: <a href={project.deployedLink}>{project.deployedLink}</a>
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-};
+
+    return (
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project, index) => (
+          <div key={index} className="bg-white p-6 shadow-lg rounded-lg">
+            <h2 className="text-xl font-bold mb-2">{project.title}</h2>
+            <p className="text-gray-700 mb-4">{project.description}</p>
+            <img src={project.image} alt={project.title} className="w-full h-auto mb-4" />
+            <p className="text-blue-500">
+              GitHub: <a href={project.githubLink}>{project.githubLink}</a>
+            </p>
+            <p className="text-blue-500">
+              Deployed: <a href={project.deployedLink}>{project.deployedLink}</a>
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
 export default Project;
