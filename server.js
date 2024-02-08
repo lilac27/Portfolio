@@ -1,19 +1,20 @@
 require('dotenv').config();
-
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const cors = require('cors'); 
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors()); // Use CORS middleware
 
 app.post('/send-email', (req, res) => {
   const { name, email, message } = req.body;
 
-  // Replace these with your email and SMTP details
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -31,9 +32,11 @@ app.post('/send-email', (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return res.status(500).send(error.toString());
+      console.error('Failed to send email:', error);
+      return res.status(500).json({ error: 'Failed to send email', details: error });
     }
-    res.status(200).send('Email sent: ' + info.response);
+    console.log('Email sent:', info.response);
+    res.status(200).send('Email sent successfully');
   });
 });
 

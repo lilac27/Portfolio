@@ -14,7 +14,8 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log('Submitting form data:', formData);
+  
     try {
       const response = await fetch('http://localhost:3001/send-email', {
         method: 'POST',
@@ -23,17 +24,21 @@ const Contact = () => {
         },
         body: JSON.stringify(formData),
       });
-
+  
+      console.log('Response:', response);
+  
       if (response.ok) {
         console.log('Email sent successfully');
-        // You can add further logic here, e.g., show a success message
       } else {
-        console.error('Failed to send email');
+        const errorMessage = await response.text(); // Get error message from response body
+        console.error('Failed to send email:', errorMessage);
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
+  
 
   return (
     <div className="container mx-auto p-8">
