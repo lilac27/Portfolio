@@ -28,7 +28,8 @@ const Contact = () => {
       console.log('Response:', response);
   
       if (response.ok) {
-        console.log('Email sent successfully');
+        const responseData = await response.json();
+        console.log(responseData.message); // Output success message
       } else {
         const errorMessage = await response.text(); // Get error message from response body
         console.error('Failed to send email:', errorMessage);

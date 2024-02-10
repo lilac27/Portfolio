@@ -1,86 +1,64 @@
-require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
-const session = require('express-session');
+require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-}));
-
 const oauth2Client = new google.auth.OAuth2(
-  'YOUR_CLIENT_ID',
-  'YOUR_CLIENT_SECRET',
-  'YOUR_REDIRECT_URL'
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    process.env.REDIRECT_URL
 );
 
-// Configure Gmail API scopes
-const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
+oauth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 
-app.get('/auth/google', (req, res) => {
-  const authUrl = oauth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: SCOPES,
-  });
-  res.redirect(authUrl);
-});
+app.use(express.json());
+app.use(cors());
 
-app.get('/auth/google/callback', async (req, res) => {
-  const { code } = req.query;
-  try {
-    const { tokens } = await oauth2Client.getToken(code);
-    req.session.tokens = tokens;
-    res.redirect('/send-email');
-  } catch (error) {
-    console.error('Error retrieving access token:', error);
-    res.status(500).send('Failed to authenticate with Google.');
-  }
-});
+async function sendMail(mailOptions) {
+    try {
+        const accessToken = await oauth2Client.getAccessToken();
+
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: process.env.EMAIL,
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                accessToken: accessToken
+            }
+        });
+
+        const result = await transport.sendMail(mailOptions);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
 
 app.post('/send-email', async (req, res) => {
-  const { name, email, message } = req.body;
+    const { to, subject, text } = req.body;
 
-  try {
-    // Set the credentials using the access token stored in the session
-    oauth2Client.setCredentials(req.session.tokens);
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: to,
+        subject: subject,
+        text: text
+    };
 
-    const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
-
-    const emailContent = `
-      From: "Your Name" <your-email@gmail.com>
-      To: ${email}
-      Subject: New Contact Form Submission
-      Content-Type: text/html; charset=utf-8
-      
-      <p>Name: ${name}</p>
-      <p>Email: ${email}</p>
-      <p>Message: ${message}</p>
-    `;
-
-    const encodedEmail = Buffer.from(emailContent).toString('base64');
-
-    await gmail.users.messages.send({
-      userId: 'me',
-      requestBody: {
-        raw: encodedEmail,
-      },
-    });
-
-    res.status(200).send('Email sent successfully');
-  } catch (error) {
-    console.error('Failed to send email:', error);
-    res.status(500).send('Failed to send email');
-  }
+    try {
+        const result = await sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully', result });
+    } catch (error) {
+        console.error('Failed to send email:', error);
+        res.status(500).json({ error: 'Failed to send email', details: error.message || error });
+    }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
-
